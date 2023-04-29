@@ -29,6 +29,13 @@ export const fetchAllStudents = (students) => {
   };
 };
 
+export const addCampus = (campus) => {
+  return {
+    type: at.ADD_CAMPUS,
+    payload: campus,
+  };
+};
+
 export const addStudent = (student) => {
   return {
     type: at.ADD_STUDENT,
