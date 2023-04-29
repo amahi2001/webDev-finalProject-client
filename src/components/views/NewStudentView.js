@@ -1,50 +1,36 @@
-/*==================================================
-NewStudentView.js
+import Container from 'react-bootstrap/Container';
+import Card from 'react-bootstrap/Card';
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
 
-The Views component is responsible for rendering web page with data provided by the corresponding Container component.
-It constructs a React component to display the new student page.
-================================================== */
-
-const NewStudentView = (props) => {
+export default function NewStudentView(props) {
   const { handleChange, handleSubmit } = props;
 
   // Render a New Student view with an input form
   return (
-    <div>
-      <h1>New Student</h1>
+    <Container>
+      <h1 className='text-center my-4 display-6'>Add New Student</h1>
+      <Card className='p-2'>
+        <Form onSubmit={handleSubmit}>
+          <Form.Group className='mb-3' controlId='c_name'>
+            <Form.Label>First Name</Form.Label>
+            <Form.Control name="John" required placeholder='Example University' type="text" onChange={handleChange} />
+          </Form.Group>
 
-      <div >
-        <div >
-          <div >
+          <Form.Group className='mb-3' controlId=''>
+            <Form.Label>Last Name</Form.Label>
+            <Form.Control name="lastname" required placeholder='Doe' type="text" onChange={handleChange} />
+          </Form.Group>
 
-            Add a Student
-          </div>
-          <form style={{ textAlign: 'center' }} onSubmit={(e) => handleSubmit(e)}>
-            <label style={{ color: '#11153e', fontWeight: 'bold' }}>First Name: </label>
-            <input type="text" name="firstname" onChange={(e) => handleChange(e)} />
-            <br />
-            <br />
-
-            <label style={{ color: '#11153e', fontWeight: 'bold' }}>Last Name: </label>
-            <input type="text" name="lastname" onChange={(e) => handleChange(e)} />
-            <br />
-            <br />
-
-            <label style={{ color: '#11153e', fontWeight: 'bold' }}>Campus Id: </label>
-            <input type="text" name="campusId" onChange={(e) => handleChange(e)} />
-            <br />
-            <br />
-
-            <button variant="contained" color="primary" type="submit">
-              Submit
-            </button>
-            <br />
-            <br />
-          </form>
-        </div>
-      </div>
-    </div>
-  )
+          <Form.Group className='mb-3'>
+            <Form.Label>Campus ID</Form.Label>
+            <Form.Control min={0} type="number" name="campusId" required placeholder='Enter a description' onChange={handleChange} />
+          </Form.Group>
+          <Button type="submit">
+            Add Campus
+          </Button>
+        </Form>
+      </Card>
+    </Container>
+  );
 }
-
-export default NewStudentView;
