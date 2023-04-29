@@ -5,7 +5,7 @@ It contains all Thunk Creators and Thunks.
 ================================================== */
 import * as ac from './actions/actionCreators';  // Import Action Creators ("ac" keyword Action Creator)
 const axios = require('axios');
-
+axios.defaults.baseURL = 'http://localhost:8080'
 //All Campuses
 // THUNK CREATOR:
 export const fetchAllCampusesThunk = () => async (dispatch) => {  // The THUNK
