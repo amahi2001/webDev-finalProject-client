@@ -49,10 +49,12 @@ export default function AllCampusesView(props) {
             <span className="ms-2 me-auto">
               <div className="fw-bold">{campus.name}</div>
               {campus.description}
+              <div>{`ID: ${campus.id}`}</div>
             </span>
+
             <ButtonGroup aria-label="Basic example">
               <Button as={Link} to={`/newcampus/`} variant='outline-dark'>
-                {`ID: ${campus.id}`}
+                View
               </Button>
               <Button variant='outline-danger'>
                 Delete

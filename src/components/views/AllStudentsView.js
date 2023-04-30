@@ -50,10 +50,11 @@ export default function AllStudentsView(props) {
           >
             <span className="ms-2 me-auto">
               <div className="fw-bold">{student.firstname + " " + student.lastname}</div>
+              <div>{`ID: ${student.id}`}</div>
             </span>
             <ButtonGroup aria-label="Basic example">
               <Button as={Link} to={`/student/${student.id}`} variant='outline-dark'>
-                {`ID: ${student.id}`}
+                View
               </Button>
               <Button variant='outline-danger' onClick={() => deleteStudent(student.id)}>
                 Delete
