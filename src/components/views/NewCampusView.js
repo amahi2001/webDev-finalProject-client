@@ -1,55 +1,36 @@
-/*==================================================
-NewStudentView.js
+import Container from 'react-bootstrap/Container';
+import Card from 'react-bootstrap/Card';
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
 
-The Views component is responsible for rendering web page with data provided by the corresponding Container component.
-It constructs a React component to display the new student page.
-================================================== */
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
-import { formStyles } from '../../styles/globalStyles';
-
-const NewStudentView = (props) => {
+export default function NewCampusView(props) {
     const { handleChange, handleSubmit } = props;
-    const classes = formStyles();
 
     // Render a New Student view with an input form
     return (
-        <div>
-            <h1>New Campus</h1>
+        <Container>
+            <h1 className='text-center my-4 display-5'>Add New Campus</h1>
+            <Card className='p-2'>
+                <Form onSubmit={handleSubmit}>
+                    <Form.Group className='mb-3' controlId='c_name'>
+                        <Form.Label>Campus Name</Form.Label>
+                        <Form.Control name="campusName" required placeholder='Example University' type="text" onChange={handleChange} />
+                    </Form.Group>
 
-            <div className={classes.root}>
-                <div className={classes.formContainer}>
-                    <div className={classes.formTitle}>
-                        <Typography style={{ fontWeight: 'bold', fontFamily: 'Courier, sans-serif', fontSize: '20px', color: '#11153e' }}>
-                            Add a Campus
-                        </Typography>
-                    </div>
-                    <form style={{ textAlign: 'center' }} onSubmit={(e) => handleSubmit(e)}>
-                        <label style={{ color: '#11153e', fontWeight: 'bold' }}>Campus Name: </label>
-                        <input type="text" name="campusName" onChange={(e) => handleChange(e)} />
-                        <br />
-                        <br />
+                    <Form.Group className='mb-3' controlId=''>
+                        <Form.Label>Address</Form.Label>
+                        <Form.Control name="address" required placeholder='1234 Main St' type="text" onChange={handleChange} />
+                    </Form.Group>
 
-                        <label style={{ color: '#11153e', fontWeight: 'bold' }}>address: </label>
-                        <input type="text" name="address" onChange={(e) => handleChange(e)} />
-                        <br />
-                        <br />
-
-                        <label style={{ color: '#11153e', fontWeight: 'bold' }}>description: </label>
-                        <input type="text" name="description" onChange={(e) => handleChange(e)} />
-                        <br />
-                        <br />
-
-                        <Button variant="contained" color="primary" type="submit">
-                            Submit
-                        </Button>
-                        <br />
-                        <br />
-                    </form>
-                </div>
-            </div>
-        </div>
-    )
+                    <Form.Group className='mb-3'>
+                        <Form.Label>Description</Form.Label>
+                        <Form.Control name="description" required placeholder='Enter a description' type="text" onChange={handleChange} />
+                    </Form.Group>
+                    <Button type="submit">
+                        Add Campus
+                    </Button>
+                </Form>
+            </Card>
+        </Container>
+    );
 }
-
-export default NewStudentView;
