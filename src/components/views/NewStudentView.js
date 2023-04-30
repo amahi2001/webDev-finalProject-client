@@ -9,12 +9,12 @@ export default function NewStudentView(props) {
   // Render a New Student view with an input form
   return (
     <Container>
-      <h1 className='text-center my-4 display-6'>Add New Student</h1>
+      <h1 className='text-center my-4 display-5'>Add New Student</h1>
       <Card className='p-2'>
         <Form onSubmit={handleSubmit}>
           <Form.Group className='mb-3' controlId='c_name'>
             <Form.Label>First Name</Form.Label>
-            <Form.Control name="John" required placeholder='Example University' type="text" onChange={handleChange} />
+            <Form.Control name="firstname" required placeholder='Example University' type="text" onChange={handleChange} />
           </Form.Group>
 
           <Form.Group className='mb-3' controlId=''>

@@ -25,7 +25,7 @@ export default function AllStudentsView(props) {
   if (!students.length) {
     return (
       <Container>
-        <h1 className='text-center my-4 display-6'>There are No Students</h1>
+        <h1 className='text-center my-4 display-5'>There are No Students</h1>
         <Row className="justify-content-md-center">
           <Col md="auto">
             <AddStudent />
@@ -38,7 +38,7 @@ export default function AllStudentsView(props) {
   // If there is at least one student, render All Students view 
   return (
     <Container>
-      <h1 className='text-center my-4 display-6'>All Students</h1>
+      <h1 className='text-center my-4 display-5'>All Students</h1>
       <AddStudent />
 
       <ListGroup as="ol">

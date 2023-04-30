@@ -24,7 +24,7 @@ export default function AllCampusesView(props) {
   if (!props.allCampuses.length) {
     return (
       <Container>
-        <h1 className='text-center my-4 display-6'>There are No Students</h1>
+        <h1 className='text-center my-4 display-5'>There are No Students</h1>
         <Row className="justify-content-md-center">
           <Col md="auto">
             <AddCampus />
@@ -37,7 +37,7 @@ export default function AllCampusesView(props) {
   // If there is at least one campus, render All Campuses view 
   return (
     <Container>
-      <h1 className='text-center my-4 display-6'>All Campuses</h1>
+      <h1 className='text-center my-4 display-5'>All Campuses</h1>
       <AddCampus />
       <ListGroup as="ol">
         {props.allCampuses.map((campus) => (
@@ -53,7 +53,7 @@ export default function AllCampusesView(props) {
             </span>
 
             <ButtonGroup aria-label="Basic example">
-              <Button as={Link} to={`/newcampus/`} variant='outline-dark'>
+              <Button as={Link} to={`/campus/${campus.id}`} variant='outline-dark'>
                 View
               </Button>
               <Button variant='outline-danger'>

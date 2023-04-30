@@ -9,7 +9,7 @@ export default function NewCampusView(props) {
     // Render a New Student view with an input form
     return (
         <Container>
-            <h1 className='text-center my-4 display-6'>Add New Campus</h1>
+            <h1 className='text-center my-4 display-5'>Add New Campus</h1>
             <Card className='p-2'>
                 <Form onSubmit={handleSubmit}>
                     <Form.Group className='mb-3' controlId='c_name'>
