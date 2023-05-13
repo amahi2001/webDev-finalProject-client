@@ -9,6 +9,7 @@ import { Link } from "react-router-dom";
 import Container from 'react-bootstrap/Container';
 import ListGroup from 'react-bootstrap/ListGroup';
 import Button from 'react-bootstrap/Button';
+import Image from 'react-bootstrap/Image';
 // Take in props data to construct the component
 const CampusView = (props) => {
   const { campus } = props;
@@ -17,6 +18,13 @@ const CampusView = (props) => {
   return (
     <Container>
       <h1 className='text-center my-4 display-5'>{campus.name}</h1>
+      <Image
+        className="d-block mx-auto my-4"
+        alt="image unable to load"
+        fluid
+        rounded
+        src={campus.imageURL}
+      />
       <p className='text-center my-2 text-lead'>{campus.address}</p>
       <p className='text-center my-2 text-lead'>{campus.description}</p>
 
