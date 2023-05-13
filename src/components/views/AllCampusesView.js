@@ -13,6 +13,7 @@ import Col from 'react-bootstrap/Col';
 import ListGroup from 'react-bootstrap/ListGroup';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import Button from 'react-bootstrap/Button';
+import Image from 'react-bootstrap/Image';
 export default function AllCampusesView(props) {
   // If there is no campus, display a message.
   const AddCampus = () => (
@@ -46,10 +47,16 @@ export default function AllCampusesView(props) {
             className="d-flex justify-content-between align-items-start"
             key={campus.id}
           >
-            <span className="ms-2 me-auto">
+            <Image
+              height={100}
+              width={100}
+              roundedCircle
+              src={campus.imageURL}
+            />
+            <span className="ms-3 me-auto">
               <div className="fw-bold">{campus.name}</div>
               {campus.description}
-              <div>{`ID: ${campus.id}`}</div>
+              <div>{`ID: ${campus.id}`}</div>              
             </span>
 
             <ButtonGroup aria-label="Basic example">
