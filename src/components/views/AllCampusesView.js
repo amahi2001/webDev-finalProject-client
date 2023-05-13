@@ -48,9 +48,10 @@ export default function AllCampusesView(props) {
             key={campus.id}
           >
             <Image
+              alt="image unable to load"
               height={100}
               width={100}
-              roundedCircle
+              rounded
               src={campus.imageURL}
             />
             <span className="ms-3 me-auto">

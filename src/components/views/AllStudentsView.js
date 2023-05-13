@@ -52,7 +52,8 @@ export default function AllStudentsView(props) {
             <Image
               height={100}
               width={100}
-              roundedCircle
+              rounded
+              alt = "image unable to load"
               src={student.imageURL}
             />
             <span className="ms-3 me-auto">
