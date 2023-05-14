@@ -59,6 +59,7 @@ export default function AllStudentsView(props) {
             <span className="ms-3 me-auto">
               <div className="fw-bold">{student.firstname + " " + student.lastname}</div>
               <div>{`ID: ${student.id}`}</div>
+              {!!student.campus?.name ? `Campus: ${student.campus.name}` : <span className="text-danger">No Campus</span>}
             </span>
             <ButtonGroup aria-label="Basic example">
               <Button as={Link} to={`/student/${student.id}`} variant='outline-dark'>

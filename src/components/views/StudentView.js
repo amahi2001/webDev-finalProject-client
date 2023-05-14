@@ -17,7 +17,7 @@ export default function StudentView(props) {
         {student.firstname + " " + student.lastname}
       </h1>
 
-      <h2 className="text-center my-4 display-6">{student.campus?.name}</h2>
+      <h2 className={`text-center my-4 display-6 ${!student.campus?.name && "text-danger"}`}>{student.campus?.name || "No Campus"}</h2>
       <Image
         className="d-block mx-auto my-4"
         alt="image unable to load"
