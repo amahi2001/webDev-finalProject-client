@@ -18,7 +18,7 @@ export default function AllStudentsView(props) {
   const { students, deleteStudent } = props;
 
   const AddStudent = () => (
-    <Button as={Link} to={`/newstudent/`} variant='outline-dark' className="my-2">
+    <Button as={Link} to="/newstudent/" variant='outline-dark' className="my-2">
       + Add Student
     </Button>
   )
@@ -53,7 +53,7 @@ export default function AllStudentsView(props) {
               height={100}
               width={100}
               rounded
-              alt = "image unable to load"
+              alt="image unable to load"
               src={student.imageURL}
             />
             <span className="ms-3 me-auto">
@@ -69,7 +69,6 @@ export default function AllStudentsView(props) {
               </Button>
             </ButtonGroup>
           </ListGroup.Item>
-
         ))}
       </ListGroup>
     </Container>
