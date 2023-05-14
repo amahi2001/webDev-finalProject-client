@@ -6,10 +6,10 @@ It constructs a React component to display a single campus and its students (if 
 ================================================== */
 import { Link } from "react-router-dom";
 //react bootstrap
-import Container from 'react-bootstrap/Container';
-import ListGroup from 'react-bootstrap/ListGroup';
-import Button from 'react-bootstrap/Button';
-import Image from 'react-bootstrap/Image';
+import Container from "react-bootstrap/Container";
+import ListGroup from "react-bootstrap/ListGroup";
+import Button from "react-bootstrap/Button";
+import Image from "react-bootstrap/Image";
 // Take in props data to construct the component
 const CampusView = (props) => {
   const { campus } = props;
@@ -17,7 +17,7 @@ const CampusView = (props) => {
   // Render a single Campus view with list of its students
   return (
     <Container>
-      <h1 className='text-center my-4 display-5'>{campus.name}</h1>
+      <h1 className="text-center my-4 display-5">{campus.name}</h1>
       <Image
         className="d-block mx-auto my-4"
         alt="image unable to load"
@@ -25,28 +25,36 @@ const CampusView = (props) => {
         rounded
         src={campus.imageURL}
       />
-      <p className='text-center my-2 text-lead'>{campus.address}</p>
-      <p className='text-center my-2 text-lead'>{campus.description}</p>
-
+      <p className="text-center my-2 text-lead">{campus.address}</p>
+      <p className="text-center my-2 text-lead">{campus.description}</p>
+      {!campus.students.length && (
+        <h2 className="text-center my-4 display-6 text-danger">
+          No Students Enrolled
+        </h2>
+      )}
       <ListGroup as="ol">
-        {campus.students.map(student => (
+        {campus.students.map((student) => (
           <ListGroup.Item
             as="li"
             className="d-flex justify-content-between align-items-start"
             key={campus.id}
           >
             <span className="ms-2 me-auto">
-              <div className="fw-bold">{student.firstname + " " + student.lastname}</div>
+              <div className="fw-bold">
+                {student.firstname + " " + student.lastname}
+              </div>
             </span>
 
-            <Button as={Link} to={`/student/${student.id}`} variant='outline-dark'>
+            <Button
+              as={Link}
+              to={`/student/${student.id}`}
+              variant="outline-dark"
+            >
               View
             </Button>
           </ListGroup.Item>
-
         ))}
       </ListGroup>
-
     </Container>
   );
 };
