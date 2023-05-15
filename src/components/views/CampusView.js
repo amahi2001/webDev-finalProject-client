@@ -10,6 +10,7 @@ import Container from "react-bootstrap/Container";
 import ListGroup from "react-bootstrap/ListGroup";
 import Button from "react-bootstrap/Button";
 import Image from "react-bootstrap/Image";
+import ButtonGroup from "react-bootstrap/ButtonGroup";
 // Take in props data to construct the component
 const CampusView = (props) => {
   const { campus } = props;
@@ -37,21 +38,41 @@ const CampusView = (props) => {
           <ListGroup.Item
             as="li"
             className="d-flex justify-content-between align-items-start"
-            key={campus.id}
+            key={student.id}
           >
-            <span className="ms-2 me-auto">
+            <Image
+              height={100}
+              width={100}
+              rounded
+              alt="image unable to load"
+              src={student.imageURL}
+            />
+            <span className="ms-3 me-auto">
               <div className="fw-bold">
                 {student.firstname + " " + student.lastname}
               </div>
+              <div>{`ID: ${student.id}`}</div>
+              {!!student.campus?.name ? (
+                `Campus: ${student.campus.name}`
+              ) : (
+                <span className="text-danger">No Campus</span>
+              )}
             </span>
-
-            <Button
-              as={Link}
-              to={`/student/${student.id}`}
-              variant="outline-dark"
-            >
-              View
-            </Button>
+            <ButtonGroup aria-label="Basic example">
+              <Button
+                as={Link}
+                to={`/student/${student.id}`}
+                variant="outline-dark"
+              >
+                View
+              </Button>
+              <Button
+                variant="outline-danger"
+                // onClick={() => deleteStudent(student.id)}
+              >
+                Delete
+              </Button>
+            </ButtonGroup>
           </ListGroup.Item>
         ))}
       </ListGroup>

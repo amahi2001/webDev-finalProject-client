@@ -35,10 +35,9 @@ export default function NewCampusView(props) {
           </Form.Group>
 
           <Form.Group className="mb-3">
-            <Form.Label>Description</Form.Label>
+            <Form.Label>Description (optional)</Form.Label>
             <Form.Control
               name="description"
-              required
               placeholder="Enter a description"
               type="text"
               onChange={handleChange}
@@ -46,10 +45,9 @@ export default function NewCampusView(props) {
           </Form.Group>
 
           <Form.Group className="mb-3">
-            <Form.Label>Image URL</Form.Label>
+            <Form.Label>Image URL (optional)</Form.Label>
             <Form.Control
               name="imageURL"
-              required
               placeholder="https://example.com/image.jpg"
               type="text"
               onChange={handleChange}
