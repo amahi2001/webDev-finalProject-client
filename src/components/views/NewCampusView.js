@@ -56,7 +56,7 @@ export default function NewCampusView(props) {
               pattern="https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)"
             />
             <Form.Text muted>
-                Please enter a valid URL starting with http:// or https://
+              Please enter a valid URL starting with http:// or https://
             </Form.Text>
           </Form.Group>
 
