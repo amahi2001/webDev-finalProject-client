@@ -5,14 +5,14 @@ The Container component is responsible for stateful logic and data fetching, and
 passes data (if any) as props to the corresponding View component.
 If needed, it also defines the component's "connect" function.
 ================================================== */
-import Header from './Header';
-import { Component } from 'react';
-import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom';
+import Header from "./Header";
+import { Component } from "react";
+import { connect } from "react-redux";
+import { Redirect } from "react-router-dom";
 import { withRouter } from "react-router-dom";
 
-import NewStudentView from '../views/NewStudentView';
-import { addStudentThunk, fetchAllCampusesThunk } from '../../store/thunks';
+import NewStudentView from "../views/NewStudentView";
+import { addStudentThunk, fetchAllCampusesThunk } from "../../store/thunks";
 
 class NewStudentContainer extends Component {
   // Initialize state
@@ -21,29 +21,34 @@ class NewStudentContainer extends Component {
     this.state = {
       firstname: "",
       lastname: "",
+      email: "",
       imageURL: "",
+      GPA: null,
       campusId: null,
       redirect: false,
-      redirectId: null
+      redirectId: null,
     };
   }
 
   // Capture input data when it is entered
-  handleChange = event => {
+  handleChange = (event) => {
     this.setState({
-      [event.target.name]: event.target.value
+      [event.target.name]: event.target.value,
     });
-  }
+  };
 
   // Take action after user click the submit button
-  handleSubmit = async event => {
-    event.preventDefault();  // Prevent browser reload/refresh after submit.
+  handleSubmit = async (event) => {
+    event.preventDefault(); // Prevent browser reload/refresh after submit.
 
     let student = {
       firstname: this.state.firstname,
       lastname: this.state.lastname,
-      imageURL: this.state.imageURL,
-      campusId: this.state.campusId
+      email: this.state.email,
+      // Only add imageURL and GPA if they are not empty
+      ...(this.state.imageURL && { imageURL: this.state.imageURL }),
+      ...(this.state.GPA && { GPA: this.state.GPA }),
+      campusId: this.state.campusId,
     };
 
     // Add new student in back-end database
@@ -53,12 +58,14 @@ class NewStudentContainer extends Component {
     this.setState({
       firstname: "",
       lastname: "",
+      email: "",
       imageURL: "",
+      GPA: null,
       campusId: null,
       redirect: true,
-      redirectId: newStudent.id
+      redirectId: newStudent.id,
     });
-  }
+  };
 
   componentDidMount() {
     this.props.fetchAllCampuses();
@@ -73,7 +80,7 @@ class NewStudentContainer extends Component {
   render() {
     // Redirect to new student's page after submit
     if (this.state.redirect) {
-      return (<Redirect to={`/student/${this.state.redirectId}`} />)
+      return <Redirect to={`/student/${this.state.redirectId}`} />;
     }
 
     // Display the input form via the corresponding View component
@@ -92,7 +99,7 @@ class NewStudentContainer extends Component {
 
 const mapState = (state) => {
   return {
-    allCampuses: state.allCampuses,  // Get the State object from Reducer "allCampuses"
+    allCampuses: state.allCampuses, // Get the State object from Reducer "allCampuses"
   };
 };
 
@@ -100,13 +107,13 @@ const mapState = (state) => {
 // The "mapDispatch" argument is used to dispatch Action (Redux Thunk) to Redux Store.
 // The "mapDispatch" calls the specific Thunk to dispatch its action. The "dispatch" is a function of Redux Store.
 const mapDispatch = (dispatch) => {
-  return ({
+  return {
     addStudent: (student) => dispatch(addStudentThunk(student)),
-    fetchAllCampuses: () => dispatch(fetchAllCampusesThunk())
-  })
-}
+    fetchAllCampuses: () => dispatch(fetchAllCampusesThunk()),
+  };
+};
 
 // Export store-connected container by default
-// NewStudentContainer uses "connect" function to connect to Redux Store and to read values from the Store 
+// NewStudentContainer uses "connect" function to connect to Redux Store and to read values from the Store
 // (and re-read the values when the Store State updates).
 export default withRouter(connect(mapState, mapDispatch)(NewStudentContainer));

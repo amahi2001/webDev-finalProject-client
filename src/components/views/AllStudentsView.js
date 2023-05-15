@@ -63,11 +63,23 @@ export default function AllStudentsView(props) {
                 {student.firstname + " " + student.lastname}
               </div>
               <div>{`ID: ${student.id}`}</div>
-              {!!student.campus?.name ? (
-                `Campus: ${student.campus.name}`
-              ) : (
-                <span className="text-danger">No Campus</span>
-              )}
+              <div>
+                Email: <a href={`mailto: ${student.email}`}>{student.email}</a>
+              </div>
+              <div>
+                {!!student.campus?.name ? (
+                  `Campus: ${student.campus.name}`
+                ) : (
+                  <span className="text-danger">No Campus</span>
+                )}
+              </div>
+              <div>
+                {!!student.GPA ? (
+                  `GPA: ${student.GPA}`
+                ) : (
+                  <span className="text-danger">No GPA Available</span>
+                )}
+              </div>
             </span>
             <ButtonGroup aria-label="Basic example">
               <Button
