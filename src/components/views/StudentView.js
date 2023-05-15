@@ -14,7 +14,7 @@ export default function StudentView(props) {
   return (
     <Container>
       <h1 className="text-center my-4 display-5">
-        {student.firstname + " " + student.lastname}
+        {student?.firstname + " " + student?.lastname}
       </h1>
 
       <h2 className={`text-center my-4 display-6 ${!student.campus?.name && "text-danger"}`}>{student.campus?.name || "No Campus"}</h2>
@@ -23,7 +23,7 @@ export default function StudentView(props) {
         alt="image unable to load"
         fluid
         rounded
-        src={student.imageURL}
+        src={student?.imageURL}
       />
     </Container>
   );
