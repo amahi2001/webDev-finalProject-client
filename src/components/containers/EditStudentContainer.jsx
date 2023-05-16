@@ -7,11 +7,16 @@ If needed, it also defines the component's "connect" function.
 ================================================== */
 import Header from "./Header";
 import EditStudent from "../views/EditStudentView";
+import ErrorPage from "../ErrorComponent";
 import { Component } from "react";
 import { connect } from "react-redux";
 import { Redirect, withRouter } from "react-router-dom";
 //redux
-import { fetchStudentThunk, fetchAllCampusesThunk } from "../../store/thunks";
+import {
+  fetchStudentThunk,
+  fetchAllCampusesThunk,
+  editStudentThunk,
+} from "../../store/thunks";
 
 class EditStudentContainer extends Component {
   // Initialize state
@@ -24,6 +29,7 @@ class EditStudentContainer extends Component {
       imageURL: "",
       GPA: null,
       studentID: null,
+      campusId: null,
       redirect: false,
       redirectId: null,
     };
@@ -40,7 +46,9 @@ class EditStudentContainer extends Component {
   handleSubmit = async (event) => {
     event.preventDefault(); // Prevent browser reload/refresh after submit.
 
-    let student = {
+    //update student in back-end database
+    await this.props.editStudent({
+      id: this.state.studentID,
       firstname: this.state.firstname,
       lastname: this.state.lastname,
       email: this.state.email,
@@ -48,13 +56,11 @@ class EditStudentContainer extends Component {
       ...(this.state.imageURL && { imageURL: this.state.imageURL }),
       ...(this.state.GPA && { GPA: this.state.GPA }),
       campusId: this.state.campusId,
-    };
+    });
 
-    // Add new student in back-end database
-    let newStudent = await this.props.addStudent(student);
-
-    // Update state, and trigger redirect to show the new student
+    // reset all states except redirect=true and redirectId
     this.setState({
+      ...this.state,
       firstname: "",
       lastname: "",
       email: "",
@@ -62,7 +68,6 @@ class EditStudentContainer extends Component {
       GPA: null,
       campusId: null,
       redirect: true,
-      redirectId: newStudent.id,
     });
   };
 
@@ -70,6 +75,7 @@ class EditStudentContainer extends Component {
     this.props.fetchStudent(this.props.match.params.id);
     this.props.fetchAllCampuses();
     this.setState({
+      studentID: this.props.student.id || null,
       firstname: this.props.student.firstname || "",
       lastname: this.props.student.lastname || "",
       email: this.props.student.email || "",
@@ -97,12 +103,18 @@ class EditStudentContainer extends Component {
     return (
       <div>
         <Header />
-        <EditStudent
-          handleChange={this.handleChange}
-          handleSubmit={this.handleSubmit}
-          student={this.props.student}
-          campuses={this.props.allCampuses}
-        />
+        {!!this.state.student ? (
+          <EditStudent
+            handleChange={this.handleChange}
+            handleSubmit={this.handleSubmit}
+            student={this.props.student}
+            campuses={this.props.allCampuses}
+          />
+        ) : (
+          <ErrorPage>
+            Student with ID "{this.props.match.params.id}" does not exist.
+          </ErrorPage>
+        )}
       </div>
     );
   }
@@ -122,6 +134,7 @@ function mapDispatch(dispatch) {
   return {
     fetchStudent: (student) => dispatch(fetchStudentThunk(student)),
     fetchAllCampuses: () => dispatch(fetchAllCampusesThunk()),
+    editStudent: (id) => dispatch(editStudentThunk(id)),
   };
 }
 
