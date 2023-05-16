@@ -7,6 +7,7 @@ If needed, it also defines the component's "connect" function.
 ================================================== */
 import Header from "./Header";
 import React, { Component } from "react";
+import ErrorPage from "../ErrorComponent";
 import { connect } from "react-redux";
 import { fetchStudentThunk, deleteStudentThunk } from "../../store/thunks";
 import { StudentView } from "../views";
@@ -23,10 +24,16 @@ class StudentContainer extends Component {
     return (
       <div>
         <Header />
-        <StudentView
-          student={this.props.student}
-          deleteStudent={this.props.deleteStudent}
-        />
+        {this.props.student.id ? (
+          <StudentView
+            student={this.props.student}
+            deleteStudent={this.props.deleteStudent}
+          />
+        ) : (
+          <ErrorPage>
+            Student with ID "{this.props.match.params.id}" does not exist.
+          </ErrorPage>
+        )}
       </div>
     );
   }

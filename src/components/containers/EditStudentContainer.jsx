@@ -103,7 +103,7 @@ class EditStudentContainer extends Component {
     return (
       <div>
         <Header />
-        {!!this.state.student ? (
+        {!!this.state.studentID ? (
           <EditStudent
             handleChange={this.handleChange}
             handleSubmit={this.handleSubmit}
