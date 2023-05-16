@@ -53,9 +53,12 @@ export default function StudentView(props) {
           <h2 className="text-center my-4 display-6">
             Campus:{" "}
             {!!student?.campus?.name ? (
-              <a href={`/campus/${student?.campus.id}`}>
+              <Button
+                variant="link"
+                onClick={() => history.push(`/campus/${student?.campus.id}`)}
+              >
                 {student.campus.name}
-              </a>
+              </Button>
             ) : (
               <span className="text-danger">No Campus</span>
             )}
