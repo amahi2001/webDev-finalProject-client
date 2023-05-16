@@ -6,39 +6,78 @@ It constructs a React component to display a single campus and its students (if 
 ================================================== */
 import { Link } from "react-router-dom";
 //react bootstrap
-import Container from 'react-bootstrap/Container';
-import ListGroup from 'react-bootstrap/ListGroup';
-import Button from 'react-bootstrap/Button';
+import Container from "react-bootstrap/Container";
+import ListGroup from "react-bootstrap/ListGroup";
+import Button from "react-bootstrap/Button";
+import Image from "react-bootstrap/Image";
+import ButtonGroup from "react-bootstrap/ButtonGroup";
 // Take in props data to construct the component
 const CampusView = (props) => {
-  const { campus } = props;
-
+  const { campus, deleteStudent } = props;
   // Render a single Campus view with list of its students
   return (
     <Container>
-      <h1 className='text-center my-4 display-5'>{campus.name}</h1>
-      <p className='text-center my-2 text-lead'>{campus.address}</p>
-      <p className='text-center my-2 text-lead'>{campus.description}</p>
-
+      <h1 className="text-center my-4 display-5">{campus.id}. {campus.name}</h1>
+      <Image
+        className="d-block mx-auto my-4"
+        alt="image unable to load"
+        fluid
+        rounded
+        src={campus.imageURL}
+      />
+      <p className="text-center my-2 text-lead">{campus.address}</p>
+      <p className="text-center my-2 text-lead">{campus.description}</p>
+      {!campus.students.length && (
+        <h2 className="text-center my-4 display-6 text-danger">
+          No Students Enrolled
+        </h2>
+      )}
       <ListGroup as="ol">
-        {campus.students.map(student => (
+        {campus.students.map((student) => (
           <ListGroup.Item
             as="li"
             className="d-flex justify-content-between align-items-start"
-            key={campus.id}
+            key={student.id}
           >
-            <span className="ms-2 me-auto">
-              <div className="fw-bold">{student.firstname + " " + student.lastname}</div>
+            <Image
+              height={100}
+              width={100}
+              rounded
+              alt="image unable to load"
+              src={student.imageURL}
+            />
+            <span className="ms-3 me-auto">
+              <div className="fw-bold">
+                {student.firstname + " " + student.lastname}
+              </div>
+              <div>{`ID: ${student.id}`}</div>
+              <div>
+                Email: <a href={`mailto: ${student.email}`}>{student.email}</a>
+              </div>
+              {!!student.GPA ? (
+                `GPA: ${student.GPA}`
+              ) : (
+                <span className="text-danger">No GPA available</span>
+              )}
             </span>
-
-            <Button as={Link} to={`/student/${student.id}`} variant='outline-dark'>
-              View
-            </Button>
+            <ButtonGroup aria-label="Basic example">
+              <Button
+                as={Link}
+                to={`/student/${student.id}`}
+                variant="outline-dark"
+              >
+                View
+              </Button>
+              <Button
+                variant="outline-danger"
+                onClick={() => deleteStudent(student.id, campus.id)}
+              >
+                Delete
+              </Button>
+            </ButtonGroup>
           </ListGroup.Item>
-
         ))}
       </ListGroup>
-
     </Container>
   );
 };
