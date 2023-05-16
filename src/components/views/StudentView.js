@@ -36,7 +36,7 @@ export default function StudentView(props) {
               <ButtonGroup className="">
                 <Button
                   variant="outline-primary"
-                  // href={`/students/${student.id}/edit`}
+                  onClick={() => history.push(`/edit-student/${student.id}`)}
                 >
                   Edit
                 </Button>
