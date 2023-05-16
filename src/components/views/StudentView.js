@@ -48,6 +48,11 @@ export default function StudentView(props) {
       </Row>
 
       <h2 className="text-center my-4 display-6">
+        email:{" "}
+          <a href={`mailto:${student.email}`}>{student.email}</a>
+      </h2>
+
+      <h2 className="text-center my-4 display-6">
         Campus:{" "}
         {!!student?.campus?.name ? (
           <Button
