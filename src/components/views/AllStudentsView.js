@@ -85,9 +85,16 @@ export default function AllStudentsView(props) {
               <Button
                 as={Link}
                 to={`/student/${student.id}`}
-                variant="outline-dark"
+                variant="outline-primary"
               >
                 View
+              </Button>
+              <Button
+                as={Link}
+                to={`/edit-student/${student.id}`}
+                variant="outline-dark"
+              >
+                Edit
               </Button>
               <Button
                 variant="outline-danger"
