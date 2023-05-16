@@ -4,38 +4,82 @@ StudentView.js
 The Views component is responsible for rendering web page with data provided by the corresponding Container component.
 It constructs a React component to display the single student view page.
 ================================================== */
+import { Fragment } from "react";
+//react bootstrap
 import Image from "react-bootstrap/Image";
 import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import ButtonGroup from "react-bootstrap/ButtonGroup";
+import Button from "react-bootstrap/Button";
+//react-router
+import { useHistory } from "react-router-dom";
 
 export default function StudentView(props) {
-  const { student } = props;
+  const { student, deleteStudent } = props;
+
+  const history = useHistory();
 
   // Render a single Student view
   return (
     <Container>
-      <h1 className="text-center my-4 display-5">
-        {student?.firstname + " " + student?.lastname}
-      </h1>
-      <h2 className="text-center my-4 display-6">
-        Campus:{" "}
-        <span className={`${!student.campus?.name && "text-danger"}`}>
-          {student.campus?.name || "No Campus"}
-        </span>
-      </h2>
+      {!!student ? (
+        <Fragment>
+          <Row md="auto" className="justify-content-md-center">
+            <Col>
+              <h1 className="text-center my-4 display-5">
+                {`${student?.id}. ${student?.firstname}  ${student?.lastname}`}
+              </h1>
+            </Col>
+            {/* Edit and Delete Buttons */}
+            <Col className="d-flex align-items-center">
+              <ButtonGroup className="">
+                <Button
+                  variant="outline-primary"
+                  // href={`/students/${student.id}/edit`}
+                >
+                  Edit
+                </Button>
+                <Button
+                  variant="outline-danger"
+                  onClick={() => deleteStudent(student.id, history)}
+                >
+                  Delete
+                </Button>
+              </ButtonGroup>
+            </Col>
+          </Row>
 
-      <h3 className="text-center my-4 display-7">
-        GPA:{" "}
-        <span className={`${!student.GPA && "text-danger"}`}>
-          {student.GPA || "No Campus"}
-        </span>
-      </h3>
-      <Image
-        className="d-block mx-auto my-4"
-        alt="image unable to load"
-        fluid
-        rounded
-        src={student?.imageURL}
-      />
+          <h2 className="text-center my-4 display-6">
+            Campus:{" "}
+            {!!student?.campus?.name ? (
+              <a href={`/campus/${student?.campus.id}`}>
+                {student.campus.name}
+              </a>
+            ) : (
+              <span className="text-danger">No Campus</span>
+            )}
+          </h2>
+
+          <h3 className="text-center my-4 display-7">
+            GPA:{" "}
+            <span className={`${!student?.GPA && "text-danger"}`}>
+              {student?.GPA || "No Campus"}
+            </span>
+          </h3>
+          <Image
+            className="d-block mx-auto my-4"
+            alt="image unable to load"
+            fluid
+            rounded
+            src={student?.imageURL}
+          />
+        </Fragment>
+      ) : (
+        <h1 className="text-center my-4 display-5">
+          404: Student Doesn't Exist
+        </h1>
+      )}
     </Container>
   );
 }
