@@ -85,7 +85,7 @@ export default function NewStudentView(props) {
               placeholder="https://example.com/image.jpg"
               type="text"
               onChange={handleChange}
-              pattern="https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)"
+              pattern="https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()!@:%_\+.~#?&\/\/=]*)"
               title="Please provide a valid URL starting with http:// or https://. Example: https://example.com/image.jpg"
             />
             <Form.Text muted>
