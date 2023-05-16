@@ -77,6 +77,7 @@ export default function EditStudent(props) {
               max={4}
               step={0.01}
               onChange={handleChange}
+              defaultValue={student.GPA}
             />
           </Form.Group>
 
@@ -87,8 +88,9 @@ export default function EditStudent(props) {
               placeholder="https://example.com/image.jpg"
               type="text"
               onChange={handleChange}
-              pattern="https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)"
+              pattern="https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()!@:%_\+.~#?&\/\/=]*)"
               title="Please provide a valid URL starting with http:// or https://. Example: https://example.com/image.jpg"
+              defaultValue={student.imageURL}
             />
             <Form.Text muted>
               Please enter a valid URL starting with http:// or https://
