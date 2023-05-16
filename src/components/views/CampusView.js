@@ -17,7 +17,9 @@ const CampusView = (props) => {
   // Render a single Campus view with list of its students
   return (
     <Container>
-      <h1 className="text-center my-4 display-5">{campus.id}. {campus.name}</h1>
+      <h1 className="text-center my-4 display-5">
+        {campus.id}. {campus.name}
+      </h1>
       <Image
         className="d-block mx-auto my-4"
         alt="image unable to load"
@@ -64,9 +66,16 @@ const CampusView = (props) => {
               <Button
                 as={Link}
                 to={`/student/${student.id}`}
-                variant="outline-dark"
+                variant="outline-primary"
               >
                 View
+              </Button>
+              <Button
+                as={Link}
+                to={`/edit-student/${student.id}`}
+                variant="outline-dark"
+              >
+                Edit
               </Button>
               <Button
                 variant="outline-danger"
