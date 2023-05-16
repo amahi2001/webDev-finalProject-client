@@ -13,12 +13,11 @@ import Image from "react-bootstrap/Image";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
 // Take in props data to construct the component
 const CampusView = (props) => {
-  const { campus } = props;
-
+  const { campus, deleteStudent } = props;
   // Render a single Campus view with list of its students
   return (
     <Container>
-      <h1 className="text-center my-4 display-5">{campus.name}</h1>
+      <h1 className="text-center my-4 display-5">{campus.id}. {campus.name}</h1>
       <Image
         className="d-block mx-auto my-4"
         alt="image unable to load"
@@ -52,10 +51,13 @@ const CampusView = (props) => {
                 {student.firstname + " " + student.lastname}
               </div>
               <div>{`ID: ${student.id}`}</div>
-              {!!student.campus?.name ? (
-                `Campus: ${student.campus.name}`
+              <div>
+                Email: <a href={`mailto: ${student.email}`}>{student.email}</a>
+              </div>
+              {!!student.GPA ? (
+                `GPA: ${student.GPA}`
               ) : (
-                <span className="text-danger">No Campus</span>
+                <span className="text-danger">No GPA available</span>
               )}
             </span>
             <ButtonGroup aria-label="Basic example">
@@ -68,7 +70,7 @@ const CampusView = (props) => {
               </Button>
               <Button
                 variant="outline-danger"
-                // onClick={() => deleteStudent(student.id)}
+                onClick={() => deleteStudent(student.id, campus.id)}
               >
                 Delete
               </Button>
