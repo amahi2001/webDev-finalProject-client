@@ -79,7 +79,7 @@ const CampusView = (props) => {
               </Button>
               <Button
                 variant="outline-danger"
-                onClick={() => deleteStudent(student.id, campus.id)}
+                onClick={() => deleteStudent(student.id)}
               >
                 Delete
               </Button>

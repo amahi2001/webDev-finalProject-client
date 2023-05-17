@@ -8,10 +8,7 @@ If needed, it also defines the component's "connect" function.
 import Header from "./Header";
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import {
-  fetchCampusThunk,
-  deleteStudentThunk,
-} from "../../store/thunks";
+import { fetchCampusThunk, deleteStudentThunk } from "../../store/thunks";
 
 import { CampusView } from "../views";
 
@@ -50,10 +47,7 @@ const mapState = (state) => {
 const mapDispatch = (dispatch) => {
   return {
     fetchCampus: (id) => dispatch(fetchCampusThunk(id)),
-    deleteStudent: async (studentId, campusID) => {
-      await dispatch(deleteStudentThunk(studentId));
-      dispatch(fetchCampusThunk(campusID));
-    },
+    deleteStudent: (studentId) => dispatch(deleteStudentThunk(studentId)),
   };
 };
 
