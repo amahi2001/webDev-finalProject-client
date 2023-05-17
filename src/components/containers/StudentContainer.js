@@ -24,7 +24,7 @@ class StudentContainer extends Component {
     return (
       <div>
         <Header />
-        {this.props.student.id ? (
+        {!!this.props.student?.id ? (
           <StudentView
             student={this.props.student}
             deleteStudent={this.props.deleteStudent}
