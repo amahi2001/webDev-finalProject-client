@@ -17,12 +17,7 @@ import Image from "react-bootstrap/Image";
 export default function AllCampusesView(props) {
   // If there is no campus, display a message.
   const AddCampus = () => (
-    <Button
-      as={Link}
-      to={`/newcampus/`}
-      variant="outline-dark"
-      className="my-2"
-    >
+    <Button as={Link} to="/newcampus/" variant="outline-dark" className="my-2">
       + Add Campus
     </Button>
   );
