@@ -1,5 +1,5 @@
 /*==================================================
-NewStudentContainer.js
+EditStudentContainer.js
 
 The Container component is responsible for stateful logic and data fetching, and
 passes data (if any) as props to the corresponding View component.
@@ -23,13 +23,16 @@ class EditStudentContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      //states for student info
       firstname: "",
       lastname: "",
       email: "",
       imageURL: "",
-      GPA: null,
-      studentID: null,
-      campusId: null,
+      GPA: "",
+      campusId: "",
+      //states for available campuses
+      campuses: [],
+      //states for redirect
       redirect: false,
       redirectId: null,
     };
@@ -47,41 +50,51 @@ class EditStudentContainer extends Component {
     event.preventDefault(); // Prevent browser reload/refresh after submit.
 
     //update student in back-end database
-    await this.props.editStudent({
-      id: this.state.studentID,
+    let student = {
+      id: this.props.match.params.id,
       firstname: this.state.firstname,
       lastname: this.state.lastname,
       email: this.state.email,
       // Only add imageURL and GPA if they are not empty
-      ...(this.state.imageURL && { imageURL: this.state.imageURL }),
-      ...(this.state.GPA && { GPA: this.state.GPA }),
+      imageURL: this.state.imageURL || null,
+      GPA: this.state.GPA || null,
       campusId: this.state.campusId,
-    });
+    };
+
+    await this.props.editStudent(student);
 
     // reset all states except redirect=true and redirectId
     this.setState({
-      ...this.state,
+      //states for student info
       firstname: "",
       lastname: "",
       email: "",
       imageURL: "",
-      GPA: null,
-      campusId: null,
+      GPA: "",
+      campusId: "",
+      //states for available campuses
+      campuses: [],
+      //states for redirect
       redirect: true,
+      redirectId: this.props.student?.id,
     });
   };
 
-  componentDidMount() {
-    this.props.fetchStudent(this.props.match.params.id);
-    this.props.fetchAllCampuses();
+  async componentDidMount() {
+    await this.props.fetchStudent(this.props.match.params.id);
+    await this.props.fetchAllCampuses();
+
     this.setState({
-      studentID: this.props.student.id || null,
+      //states for student info
       firstname: this.props.student.firstname || "",
       lastname: this.props.student.lastname || "",
       email: this.props.student.email || "",
       imageURL: this.props.student.imageURL || "",
-      GPA: this.props.student.GPA || null,
-      campusId: this.props.student.id || null,
+      GPA: this.props.student.GPA || "",
+      campusId: this.props.student.campus.id || "",
+      //states for available campuses
+      campuses: this.props.allCampuses || [],
+      //states for redirect
       redirect: false,
       redirectId: this.props.student.id,
     });
@@ -103,12 +116,11 @@ class EditStudentContainer extends Component {
     return (
       <div>
         <Header />
-        {!!this.state.studentID ? (
+        {!!this.props.match.params.id ? (
           <EditStudent
             handleChange={this.handleChange}
             handleSubmit={this.handleSubmit}
-            student={this.props.student}
-            campuses={this.props.allCampuses}
+            student={this.state}
           />
         ) : (
           <ErrorPage>
@@ -132,7 +144,7 @@ function mapState(state) {
 // The "mapDispatch" calls the specific Thunk to dispatch its action. The "dispatch" is a function of Redux Store.
 function mapDispatch(dispatch) {
   return {
-    fetchStudent: (student) => dispatch(fetchStudentThunk(student)),
+    fetchStudent: (id) => dispatch(fetchStudentThunk(id)),
     fetchAllCampuses: () => dispatch(fetchAllCampusesThunk()),
     editStudent: (id) => dispatch(editStudentThunk(id)),
   };

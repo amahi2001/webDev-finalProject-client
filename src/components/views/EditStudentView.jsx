@@ -4,7 +4,7 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 
 export default function EditStudent(props) {
-  const { handleChange, handleSubmit, student, campuses } = props;
+  const { handleChange, handleSubmit, student } = props;
   return (
     <Container>
       <h1 className="text-center my-4 display-5">Edit Student:</h1>
@@ -18,7 +18,7 @@ export default function EditStudent(props) {
               placeholder="John"
               type="text"
               onChange={handleChange}
-              defaultValue={student.firstname}
+              value={student.firstname}
             />
           </Form.Group>
 
@@ -30,7 +30,7 @@ export default function EditStudent(props) {
               placeholder="Doe"
               type="text"
               onChange={handleChange}
-              defaultValue={student.lastname}
+              value={student.lastname}
             />
           </Form.Group>
 
@@ -44,7 +44,7 @@ export default function EditStudent(props) {
               title="Please provide a valid email address in the form of <example>@<example>.<example>"
               pattern="[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+"
               onChange={handleChange}
-              defaultValue={student.email}
+              value={student.email}
             />
           </Form.Group>
 
@@ -55,10 +55,10 @@ export default function EditStudent(props) {
               required
               placeholder="Enter a Campus ID"
               onChange={handleChange}
-              defaultValue={student.campusId}
+              value={student.campusId}
             >
               <option value={null}>No Campus</option>
-              {campuses.map((campus) => (
+              {student.campuses.map((campus) => (
                 <option
                   key={campus.id}
                   value={campus.id}
@@ -77,7 +77,7 @@ export default function EditStudent(props) {
               max={4}
               step={0.01}
               onChange={handleChange}
-              defaultValue={student.GPA}
+              value={student.GPA}
             />
           </Form.Group>
 
@@ -90,7 +90,7 @@ export default function EditStudent(props) {
               onChange={handleChange}
               pattern="https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()!@:%_\+.~#?&\/\/=]*)"
               title="Please provide a valid URL starting with http:// or https://. Example: https://example.com/image.jpg"
-              defaultValue={student.imageURL}
+              value={student.imageURL}
             />
             <Form.Text muted>
               Please enter a valid URL starting with http:// or https://
