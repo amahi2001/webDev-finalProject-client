@@ -7,7 +7,9 @@ export default function EditStudent(props) {
   const { handleChange, handleSubmit, student } = props;
   return (
     <Container>
-      <h1 className="text-center my-4 display-5">Edit Student:</h1>
+      <h1 className="text-center my-4 display-5">
+        Edit Student: {student.redirectId}
+      </h1>
       <Card className="p-2">
         <Form onSubmit={handleSubmit}>
           <Form.Group className="mb-3" controlId="f_name">

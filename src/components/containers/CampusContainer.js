@@ -6,11 +6,13 @@ passes data (if any) as props to the corresponding View component.
 If needed, it also defines the component's "connect" function.
 ================================================== */
 import Header from "./Header";
+import ErrorPage from "../ErrorComponent";
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import {
   fetchCampusThunk,
   deleteStudentThunk,
+  deleteCampusThunk,
 } from "../../store/thunks";
 
 import { CampusView } from "../views";
@@ -27,10 +29,17 @@ class CampusContainer extends Component {
     return (
       <div>
         <Header />
-        <CampusView
-          campus={this.props.campus}
-          deleteStudent={this.props.deleteStudent}
-        />
+        {!!this.props.campus?.id ? (
+          <CampusView
+            campus={this.props.campus}
+            deleteStudent={this.props.deleteStudent}
+            deleteCampus={this.props.deleteCampus}
+          />
+        ) : (
+          <ErrorPage>
+            Campus with ID "{this.props.match.params.id}" does not exist
+          </ErrorPage>
+        )}
       </div>
     );
   }
@@ -50,9 +59,11 @@ const mapState = (state) => {
 const mapDispatch = (dispatch) => {
   return {
     fetchCampus: (id) => dispatch(fetchCampusThunk(id)),
-    deleteStudent: async (studentId, campusID) => {
-      await dispatch(deleteStudentThunk(studentId));
-      dispatch(fetchCampusThunk(campusID));
+    deleteStudent: (studentId) => dispatch(deleteStudentThunk(studentId)),
+    deleteCampus: (campusId, history) => {
+      dispatch(deleteCampusThunk(campusId));
+      //route to all campuses
+      history.push("/campuses");
     },
   };
 };

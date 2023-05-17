@@ -17,12 +17,7 @@ import Image from "react-bootstrap/Image";
 export default function AllCampusesView(props) {
   // If there is no campus, display a message.
   const AddCampus = () => (
-    <Button
-      as={Link}
-      to={`/newcampus/`}
-      variant="outline-dark"
-      className="my-2"
-    >
+    <Button as={Link} to="/newcampus/" variant="outline-dark" className="my-2">
       + Add Campus
     </Button>
   );
@@ -71,11 +66,23 @@ export default function AllCampusesView(props) {
               <Button
                 as={Link}
                 to={`/campus/${campus.id}`}
-                variant="outline-dark"
+                variant="outline-primary"
               >
                 View
               </Button>
-              <Button variant="outline-danger">Delete</Button>
+              <Button
+                as={Link}
+                to={`/edit-campus/${campus.id}`}
+                variant="outline-dark"
+              >
+                Edit
+              </Button>
+              <Button
+                variant="outline-danger"
+                onClick={() => props.deleteCampus(campus.id)}
+              >
+                Delete
+              </Button>
             </ButtonGroup>
           </ListGroup.Item>
         ))}

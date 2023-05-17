@@ -5,21 +5,47 @@ The Views component is responsible for rendering web page with data provided by 
 It constructs a React component to display a single campus and its students (if any).
 ================================================== */
 import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 //react bootstrap
 import Container from "react-bootstrap/Container";
 import ListGroup from "react-bootstrap/ListGroup";
 import Button from "react-bootstrap/Button";
 import Image from "react-bootstrap/Image";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
 // Take in props data to construct the component
 const CampusView = (props) => {
-  const { campus, deleteStudent } = props;
+  const history = useHistory();
+  const { campus, deleteStudent, deleteCampus } = props;
   // Render a single Campus view with list of its students
   return (
     <Container>
-      <h1 className="text-center my-4 display-5">
-        {campus.id}. {campus.name}
-      </h1>
+      <Row md="auto" className="justify-content-md-center">
+        <Col>
+          <h1 className="text-center my-4 display-5">
+            {campus.id}. {campus.name}
+          </h1>
+        </Col>
+        {/* Edit and Delete Buttons */}
+        <Col className="d-flex align-items-center">
+          <ButtonGroup className="">
+            <Button
+              variant="outline-primary"
+              onClick={() => history.push(`/edit-campus/${campus.id}`)}
+            >
+              Edit
+            </Button>
+            <Button
+              variant="outline-danger"
+              onClick={() => deleteCampus(campus.id, history)}
+            >
+              Delete
+            </Button>
+          </ButtonGroup>
+        </Col>
+      </Row>
+
       <Image
         className="d-block mx-auto my-4"
         alt="image unable to load"
@@ -79,7 +105,7 @@ const CampusView = (props) => {
               </Button>
               <Button
                 variant="outline-danger"
-                onClick={() => deleteStudent(student.id, campus.id)}
+                onClick={() => deleteStudent(student.id)}
               >
                 Delete
               </Button>

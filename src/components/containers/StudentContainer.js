@@ -51,8 +51,8 @@ const mapState = (state) => {
 const mapDispatch = (dispatch, history) => {
   return {
     fetchStudent: (id) => dispatch(fetchStudentThunk(id)),
-    deleteStudent: async (id, history) => {
-      await dispatch(deleteStudentThunk(id));
+    deleteStudent: (id, history) => {
+      dispatch(deleteStudentThunk(id));
       //route to all students
       history.push("/students");
     },
