@@ -69,7 +69,7 @@ export default function StudentView(props) {
       <h3 className="text-center my-4 display-7">
         GPA:{" "}
         <span className={`${!student?.GPA && "text-danger"}`}>
-          {student?.GPA || "No Campus"}
+          {student?.GPA || "No GPA Available"}
         </span>
       </h3>
       <Image
