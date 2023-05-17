@@ -86,11 +86,11 @@ class EditStudentContainer extends Component {
 
     this.setState({
       //states for student info
-      firstname: this.props.student.firstname || "",
-      lastname: this.props.student.lastname || "",
-      email: this.props.student.email || "",
-      imageURL: this.props.student.imageURL || "",
-      GPA: this.props.student.GPA || "",
+      firstname: this.props.student?.firstname || "",
+      lastname: this.props.student?.lastname || "",
+      email: this.props.student?.email || "",
+      imageURL: this.props.student?.imageURL || "",
+      GPA: this.props.student?.GPA || "",
       campusId: this.props.student?.campus?.id || "",
       //states for available campuses
       campuses: this.props.allCampuses || [],
@@ -116,7 +116,7 @@ class EditStudentContainer extends Component {
     return (
       <div>
         <Header />
-        {!!this.props.match.params.id ? (
+        {!!this.props.student?.id ? (
           <EditStudent
             handleChange={this.handleChange}
             handleSubmit={this.handleSubmit}
