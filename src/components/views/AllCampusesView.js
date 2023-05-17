@@ -71,9 +71,16 @@ export default function AllCampusesView(props) {
               <Button
                 as={Link}
                 to={`/campus/${campus.id}`}
-                variant="outline-dark"
+                variant="outline-primary"
               >
                 View
+              </Button>
+              <Button
+                as={Link}
+                to={`/edit-campus/${campus.id}`}
+                variant="outline-dark"
+              >
+                Edit
               </Button>
               <Button
                 variant="outline-danger"

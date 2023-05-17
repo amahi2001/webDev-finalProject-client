@@ -8,6 +8,7 @@ It also defines the State and its default initial value.
 import {
   DELETE_CAMPUS,
   DELETE_STUDENT,
+  EDIT_CAMPUS,
   FETCH_CAMPUS,
 } from "../actions/actionTypes"; // Import Action Type
 
@@ -32,6 +33,11 @@ const campus = (state = initialState, action) => {
     case DELETE_CAMPUS:
       return initialState;
 
+    case EDIT_CAMPUS:
+      return {
+        ...state,
+        ...action.payload,
+      };
     default:
       // If the Reducer doesn't recognize the Action Type, returns the previous (current) State unchanged.
       return state;

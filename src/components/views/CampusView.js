@@ -32,7 +32,7 @@ const CampusView = (props) => {
           <ButtonGroup className="">
             <Button
               variant="outline-primary"
-              // onClick={() => history.push(`/edit-student/${student.id}`)}
+              onClick={() => history.push(`/edit-campus/${campus.id}`)}
             >
               Edit
             </Button>
