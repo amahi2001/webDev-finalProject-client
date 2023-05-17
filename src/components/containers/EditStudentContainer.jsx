@@ -96,7 +96,7 @@ class EditStudentContainer extends Component {
       campuses: this.props.allCampuses || [],
       //states for redirect
       redirect: false,
-      redirectId: this.props.student.id,
+      redirectId: this.props.match.params.id,
     });
   }
 
