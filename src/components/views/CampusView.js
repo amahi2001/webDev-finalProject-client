@@ -5,6 +5,7 @@ The Views component is responsible for rendering web page with data provided by 
 It constructs a React component to display a single campus and its students (if any).
 ================================================== */
 import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 //react bootstrap
 import Container from "react-bootstrap/Container";
 import ListGroup from "react-bootstrap/ListGroup";
@@ -15,6 +16,7 @@ import Col from "react-bootstrap/Col";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
 // Take in props data to construct the component
 const CampusView = (props) => {
+  const history = useHistory();
   const { campus, deleteStudent, deleteCampus } = props;
   // Render a single Campus view with list of its students
   return (
@@ -36,7 +38,7 @@ const CampusView = (props) => {
             </Button>
             <Button
               variant="outline-danger"
-              onClick={() => deleteCampus(campus.id)}
+              onClick={() => deleteCampus(campus.id, history)}
             >
               Delete
             </Button>
