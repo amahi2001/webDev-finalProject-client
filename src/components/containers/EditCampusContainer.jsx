@@ -6,20 +6,20 @@ passes data (if any) as props to the corresponding View component.
 If needed, it also defines the component's "connect" function.
 ================================================== */
 import Header from "./Header";
-import EditStudent from "../views/EditStudentView";
+import EditCampusView from "../views/EditCampusView";
 import ErrorPage from "../ErrorComponent";
 import { Component } from "react";
 import { connect } from "react-redux";
 import { Redirect, withRouter } from "react-router-dom";
 //redux
-import { fetchCampusThunk } from "../../store/thunks";
+import { fetchCampusThunk, editCampusThunk } from "../../store/thunks";
 
 class EditCampusContainer extends Component {
   // Initialize state
   constructor(props) {
     super(props);
     this.state = {
-      name: "",
+      campusName: "",
       address: "",
       description: "",
       imageURL: "",
@@ -42,42 +42,34 @@ class EditCampusContainer extends Component {
     //update student in back-end database
     let campus = {
       id: this.props.match.params.id,
-      name: this.state.name,
+      name: this.state.campusName,
       address: this.state.address,
       description: this.state.description || null,
       imageURL: this.state.imageURL || null,
     };
 
-    // await this.props.editCampus(student);
+    await this.props.editCampus(campus);
 
     // reset all states except redirect=true and redirectId
     this.setState({
-      name: "",
+      campusName: "",
       address: "",
       description: "",
       imageURL: "",
       redirect: true,
-      redirectId: null,
+      redirectId: this,
     });
   };
 
   async componentDidMount() {
-    await this.props.fetchStudent(this.props.match.params.id);
-    await this.props.fetchAllCampuses();
-
+    await this.props.fetchCampus(this.props.match.params.id);
     this.setState({
-      //states for student info
-      firstname: this.props.student.firstname || "",
-      lastname: this.props.student.lastname || "",
-      email: this.props.student.email || "",
-      imageURL: this.props.student.imageURL || "",
-      GPA: this.props.student.GPA || "",
-      campusId: this.props.student.campus.id || "",
-      //states for available campuses
-      campuses: this.props.allCampuses || [],
-      //states for redirect
+      campusName: this.props.campus?.name || "",
+      address: this.props.campus?.address || "",
+      description: this.props.campus?.description || "",
+      imageURL: this.props.campus?.imageURL || "",
       redirect: false,
-      redirectId: this.props.student.id,
+      redirectId: this.props.match.params.id,
     });
   }
 
@@ -90,15 +82,15 @@ class EditCampusContainer extends Component {
   render() {
     // Redirect to new student's page after submit
     if (this.state.redirect) {
-      return <Redirect to={`/student/${this.state.redirectId}`} />;
+      return <Redirect to={`/campus/${this.state.redirectId}`} />;
     }
 
     // Display the input form via the corresponding View component
     return (
       <div>
         <Header />
-        {!!this.props.match.params.id ? (
-          <EditStudent
+        {!!this.props.campus.id ? (
+          <EditCampusView
             handleChange={this.handleChange}
             handleSubmit={this.handleSubmit}
             campus={this.state}
@@ -115,8 +107,7 @@ class EditCampusContainer extends Component {
 
 function mapState(state) {
   return {
-    student: state.student, // Get the State object from Reducer "student"
-    allCampuses: state.allCampuses, // Get the State object from Reducer "allCampuses"
+    campus: state.campus,
   };
 }
 
@@ -126,6 +117,7 @@ function mapState(state) {
 function mapDispatch(dispatch) {
   return {
     fetchCampus: (id) => dispatch(fetchCampusThunk(id)),
+    editCampus: (id) => dispatch(editCampusThunk(id)),
   };
 }
 
