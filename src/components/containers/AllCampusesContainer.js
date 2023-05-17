@@ -46,10 +46,7 @@ const mapState = (state) => {
 const mapDispatch = (dispatch) => {
   return {
     fetchAllCampuses: () => dispatch(fetchAllCampusesThunk()),
-    deleteCampus: async (campusID) => {
-      await dispatch(deleteCampusThunk(campusID));
-      dispatch(fetchAllCampusesThunk());
-    },
+    deleteCampus: async (campusID) => dispatch(deleteCampusThunk(campusID)),
   };
 };
 
