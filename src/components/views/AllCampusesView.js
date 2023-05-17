@@ -75,7 +75,12 @@ export default function AllCampusesView(props) {
               >
                 View
               </Button>
-              <Button variant="outline-danger">Delete</Button>
+              <Button
+                variant="outline-danger"
+                onClick={() => props.deleteCampus(campus.id)}
+              >
+                Delete
+              </Button>
             </ButtonGroup>
           </ListGroup.Item>
         ))}
