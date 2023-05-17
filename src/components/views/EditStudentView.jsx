@@ -3,13 +3,11 @@ import Card from "react-bootstrap/Card";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 
-export default function NewStudentView(props) {
-  const { handleChange, handleSubmit, campuses } = props;
-
-  // Render a New Student view with an input form
+export default function EditStudent(props) {
+  const { handleChange, handleSubmit, student } = props;
   return (
     <Container>
-      <h1 className="text-center my-4 display-5">Add New Student</h1>
+      <h1 className="text-center my-4 display-5">Edit Student:</h1>
       <Card className="p-2">
         <Form onSubmit={handleSubmit}>
           <Form.Group className="mb-3" controlId="f_name">
@@ -20,6 +18,7 @@ export default function NewStudentView(props) {
               placeholder="John"
               type="text"
               onChange={handleChange}
+              value={student.firstname}
             />
           </Form.Group>
 
@@ -31,6 +30,7 @@ export default function NewStudentView(props) {
               placeholder="Doe"
               type="text"
               onChange={handleChange}
+              value={student.lastname}
             />
           </Form.Group>
 
@@ -44,6 +44,7 @@ export default function NewStudentView(props) {
               title="Please provide a valid email address in the form of <example>@<example>.<example>"
               pattern="[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+"
               onChange={handleChange}
+              value={student.email}
             />
           </Form.Group>
 
@@ -54,9 +55,10 @@ export default function NewStudentView(props) {
               required
               placeholder="Enter a Campus ID"
               onChange={handleChange}
+              value={student.campusId}
             >
               <option value={null}>No Campus</option>
-              {campuses.map((campus) => (
+              {student.campuses.map((campus) => (
                 <option
                   key={campus.id}
                   value={campus.id}
@@ -75,6 +77,7 @@ export default function NewStudentView(props) {
               max={4}
               step={0.01}
               onChange={handleChange}
+              value={student.GPA}
             />
           </Form.Group>
 
@@ -87,12 +90,13 @@ export default function NewStudentView(props) {
               onChange={handleChange}
               pattern="https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()!@:%_\+.~#?&\/\/=]*)"
               title="Please provide a valid URL starting with http:// or https://. Example: https://example.com/image.jpg"
+              value={student.imageURL}
             />
             <Form.Text muted>
               Please enter a valid URL starting with http:// or https://
             </Form.Text>
           </Form.Group>
-          <Button type="submit">Add Student</Button>
+          <Button type="submit">Edit Student</Button>
         </Form>
       </Card>
     </Container>
