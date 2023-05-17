@@ -58,7 +58,7 @@ class EditStudentContainer extends Component {
       // Only add imageURL and GPA if they are not empty
       imageURL: this.state.imageURL || null,
       GPA: this.state.GPA || null,
-      campusId: this.state.campusId,
+      campusId: this.state.campusId || null,
     };
 
     await this.props.editStudent(student);
@@ -91,7 +91,7 @@ class EditStudentContainer extends Component {
       email: this.props.student.email || "",
       imageURL: this.props.student.imageURL || "",
       GPA: this.props.student.GPA || "",
-      campusId: this.props.student.campus.id || "",
+      campusId: this.props.student?.campus?.id || "",
       //states for available campuses
       campuses: this.props.allCampuses || [],
       //states for redirect
